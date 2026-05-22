@@ -2,23 +2,27 @@ import CTA from "../components/sections/cta/default";
 import FAQ from "../components/sections/faq/default";
 import Footer from "../components/sections/footer/default";
 import Hero from "../components/sections/hero/default";
-import Items from "../components/sections/items/default";
-import Logos from "../components/sections/logos/default";
+import Marquee from "../components/sections/marquee/default";
+import Menu from "../components/sections/menu/default";
 import Navbar from "../components/sections/navbar/default";
-import Pricing from "../components/sections/pricing/default";
-import Stats from "../components/sections/stats/default";
-import { LayoutLines } from "../components/ui/layout-lines";
+import Newsletter from "../components/sections/newsletter/default";
+import Process from "../components/sections/process/default";
+import Story from "../components/sections/story/default";
+import Testimonials from "../components/sections/testimonials/default";
+import Visit from "../components/sections/visit/default";
 
 export default function Home() {
   return (
-    <main className="bg-background text-foreground min-h-screen w-full">
-      <LayoutLines />
+    <main className="bg-background text-foreground relative min-h-screen w-full overflow-x-clip">
       <Navbar />
       <Hero />
-      <Logos />
-      <Items />
-      <Stats />
-      <Pricing />
+      <Marquee />
+      <Menu />
+      <Story />
+      <Process />
+      <Testimonials />
+      <Visit />
+      <Newsletter />
       <FAQ />
       <CTA />
       <Footer />

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 import {
   Accordion,
@@ -9,166 +10,141 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../ui/accordion";
-import { Section } from "../../ui/section";
 
-interface FAQItemProps {
+interface FAQItem {
   question: string;
   answer: ReactNode;
-  value?: string;
 }
 
+const ITEMS: FAQItem[] = [
+  {
+    question: "Where are your branches?",
+    answer: (
+      <>
+        <p className="mb-4">
+          We have three locations across Mindanao:
+        </p>
+        <ul className="space-y-3">
+          {siteConfig.branches.map((branch) => (
+            <li key={branch.id}>
+              <span className="text-foreground font-medium">{branch.name}</span>
+              {" — "}
+              {branch.address}, {branch.city}, {branch.region}
+              {branch.isCommissary && (
+                <span className="text-muted-foreground"> (commissary — not walk-in retail)</span>
+              )}
+              {branch.isNewest && (
+                <span className="text-brand"> · our newest branch</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </>
+    ),
+  },
+  {
+    question: "What are your hours?",
+    answer: (
+      <p>
+        Our mall branches at SM Ecoland (Davao) and SM Zamboanga follow SM mall
+        operating hours — typically 10am to 9pm daily, with extended hours on
+        weekends. The Gulf View commissary is a production kitchen and not open
+        for walk-in retail. See our{" "}
+        <Link
+          href={siteConfig.visitUrl}
+          className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
+        >
+          visit page
+        </Link>{" "}
+        for details.
+      </p>
+    ),
+  },
+  {
+    question: "Do you take custom orders or pre-orders?",
+    answer: (
+      <p>
+        Yes! Custom cakes and large pie orders should be placed at least 48
+        hours in advance through our commissary. For catering, give us a week.
+        Walk-ins at our mall branches are always welcome for whatever&apos;s
+        fresh in the case.
+      </p>
+    ),
+  },
+  {
+    question: "Can you accommodate allergies or dietary needs?",
+    answer: (
+      <p>
+        We always have a few options on select items. Our kitchen handles nuts,
+        gluten, and dairy though, so we can&apos;t guarantee anything is
+        allergen-free. Ask our team about ingredients for any item — we&apos;re
+        happy to walk through it.
+      </p>
+    ),
+  },
+  {
+    question: "When did The Burp Co. start?",
+    answer: (
+      <p>
+        We started in {siteConfig.foundedYear}, right in the middle of the
+        pandemic, from a commissary kitchen in Gulf View, Davao City. What
+        began as a small-batch operation has grown into three branches across
+        Mindanao — but we still bake everything the same way we did on day one.
+      </p>
+    ),
+  },
+];
+
 interface FAQProps {
-  title?: string;
-  items?: FAQItemProps[] | false;
   className?: string;
 }
 
-export default function FAQ({
-  title = "Questions and Answers",
-  items = [
-    {
-      question:
-        "Why is building a great landing page critical for your business?",
-      answer: (
-        <>
-          <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
-            In today&apos;s AI-driven world, standing out is harder than ever.
-            While anyone can build a product, a professional landing page makes
-            the difference between success and failure.
-          </p>
-          <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
-            Launch UI helps you ship faster without compromising on quality.
-          </p>
-        </>
-      ),
-    },
-    {
-      question: "Why use Launch UI instead of a no-code tool?",
-      answer: (
-        <>
-          <p className="text-muted-foreground mb-4 max-w-[600px]">
-            No-code tools lock you into their ecosystem with recurring fees and
-            limited control. They often come with performance issues and make it
-            difficult to integrate with your product.
-          </p>
-          <p className="text-muted-foreground mb-4 max-w-[600px]">
-            You can&apos;t even change your hosting provider and basic things
-            like web analytics come as extra costs and paid add-ons.
-          </p>
-          <p className="text-muted-foreground mb-4 max-w-[600px]">
-            What might seem like a convenient solution today could paint you
-            into a corner tomorrow, limiting your ability to scale and adapt.
-            Launch UI gives you full control of your code while maintaining
-            professional quality.
-          </p>
-        </>
-      ),
-    },
-    {
-      question:
-        "How is Launch UI different from other component libraries and templates?",
-      answer: (
-        <>
-          <p className="text-muted-foreground mb-4 max-w-[580px]">
-            Launch UI stands out with premium design quality and delightful
-            touches of custom animations and illustrations.
-          </p>
-          <p className="text-muted-foreground mb-4 max-w-[580px]">
-            All components are carefully crafted to help position your product
-            as a professional tool, avoiding the generic template look.
-          </p>
-          <p className="text-muted-foreground mb-4 max-w-[640px] text-balance">
-            Unlike many libraries that rely on outdated CSS practices and old
-            dependencies, Launch UI is built with modern technologies and best
-            practices in mind.
-          </p>
-        </>
-      ),
-    },
-    {
-      question: 'What exactly does it mean that "The code is yours"?',
-      answer: (
-        <>
-          <p className="text-muted-foreground mb-4 max-w-[580px]">
-            The basic version of Launch UI is open-source and free forever,
-            under a do-whatever-you-want license.
-          </p>
-          <p className="text-muted-foreground mb-4 max-w-[580px]">
-            The pro version that contains more components and options is a
-            one-time purchase that gives you lifetime access to all current and
-            future content. Use it for unlimited personal and commercial
-            projects - no recurring fees or restrictions.
-          </p>
-          <p className="text-muted-foreground mb-4 max-w-[580px]">
-            For complete details about licensing and usage rights, check out{" "}
-            <Link
-              href={`${siteConfig.url}/pricing`}
-              className="text-foreground underline"
-            >
-              the pricing page
-            </Link>
-            .
-          </p>
-        </>
-      ),
-    },
-    {
-      question: "Are Figma files included?",
-      answer: (
-        <p className="text-muted-foreground mb-4 max-w-[580px]">
-          Yes! The complete Launch UI template is available for free on the{" "}
-          <Link
-            href="https://www.figma.com/community/file/1420131743903900629/launch-ui-landing-page-components-ui-kit"
-            className="text-foreground underline"
-          >
-            Figma community
-          </Link>
-          .
-        </p>
-      ),
-    },
-    {
-      question: "Can I get a discount?",
-      answer: (
-        <>
-          <p className="text-muted-foreground mb-4 max-w-[580px]">
-            Actually, yes! I&apos;m always actively looking for beta testers of
-            new features. If you are interested in exchanging feedback for a
-            discount, please contact me via{" "}
-            <a
-              href={siteConfig.links.email}
-              className="underline underline-offset-2"
-            >
-              email
-            </a>
-            .
-          </p>
-        </>
-      ),
-    },
-  ],
-  className,
-}: FAQProps) {
+export default function FAQ({ className }: FAQProps) {
   return (
-    <Section className={className}>
-      <div className="max-w-container mx-auto flex flex-col items-center gap-8">
-        <h2 className="text-center text-3xl font-semibold sm:text-5xl">
-          {title}
-        </h2>
-        {items !== false && items.length > 0 && (
-          <Accordion type="single" collapsible className="w-full max-w-[800px]">
-            {items.map((item, index) => (
-              <AccordionItem
-                key={item.value ?? item.question}
-                value={item.value || `item-${index + 1}`}
+    <section className={cn("relative px-4 py-20 sm:py-32", className)}>
+      <div className="max-w-container mx-auto">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <div className="text-muted-foreground mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] uppercase">
+              <span className="bg-brand h-px w-8" />
+              Good questions
+            </div>
+            <h2 className="font-serif text-foreground text-4xl leading-[1.05] font-medium tracking-tight sm:text-5xl">
+              Things people <em className="text-brand font-light italic">ask</em>
+              .
+            </h2>
+            <p className="text-muted-foreground mt-6 max-w-md leading-relaxed">
+              Can&apos;t find what you&apos;re looking for? Send us a note at{" "}
+              <a
+                href={siteConfig.links.email}
+                className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
               >
-                <AccordionTrigger>{item.question}</AccordionTrigger>
-                <AccordionContent>{item.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        )}
+                hello@theburpco.com
+              </a>
+              .
+            </p>
+          </div>
+
+          <div className="lg:col-span-8">
+            <Accordion type="single" collapsible className="w-full">
+              {ITEMS.map((item, i) => (
+                <AccordionItem
+                  key={item.question}
+                  value={`item-${i + 1}`}
+                  className="border-border border-b last:border-b"
+                >
+                  <AccordionTrigger className="font-serif text-foreground py-6 text-left text-xl font-medium hover:no-underline sm:text-2xl">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-6 text-base leading-relaxed">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
       </div>
-    </Section>
+    </section>
   );
 }

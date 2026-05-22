@@ -1,0 +1,8 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F5EDE4"/>
+  <rect x="0" y="480" width="1200" height="150" fill="#E8DDD0"/>
+  <text x="600" y="280" text-anchor="middle" font-family="Georgia, serif" font-size="72" font-weight="600" fill="#3D2B1F">The Burp Co.</text>
+  <text x="600" y="360" text-anchor="middle" font-family="Georgia, serif" font-size="32" fill="#5C4033" opacity="0.8">Pies · Cakes · Coffee</text>
+  <ellipse cx="600" cy="460" rx="200" ry="40" fill="#C4956A" opacity="0.3"/>
+  <path d="M400 460C480 400 720 400 800 460H400Z" fill="#C4956A" opacity="0.5"/>
+</svg>
