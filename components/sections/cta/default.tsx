@@ -46,8 +46,21 @@ export default function CTA({ className }: CTAProps) {
         </h2>
 
         <p className="text-background/70 mx-auto mt-8 max-w-xl text-lg leading-relaxed">
-          Pick up a pie on your way home. Plan the dessert table for that
-          party. Or just sit down with a coffee and a corner of cake.
+          Can&apos;t make it to a branch? Email{" "}
+          <a
+            href={siteConfig.links.email}
+            className="text-background underline decoration-brand-foreground decoration-2 underline-offset-4"
+          >
+            dburpco@gmail.com
+          </a>{" "}
+          for orders, or call{" "}
+          <a
+            href={`tel:${siteConfig.phone}`}
+            className="text-background underline decoration-brand-foreground decoration-2 underline-offset-4"
+          >
+            {siteConfig.phoneDisplay}
+          </a>
+          .
         </p>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4">

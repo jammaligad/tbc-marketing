@@ -1,3 +1,6 @@
+import Image from "next/image";
+
+import { brandAssets, featuredProducts } from "@/config/products";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +12,7 @@ interface StoryProps {
 
 export default function Story({ className }: StoryProps) {
   const years = siteConfig.stats.years;
+  const spotlight = featuredProducts[0];
 
   return (
     <section
@@ -33,30 +37,29 @@ export default function Story({ className }: StoryProps) {
               Our story
             </div>
             <h2 className="font-serif text-foreground text-5xl leading-[1.05] font-medium tracking-tight sm:text-6xl md:text-7xl">
-              Born in <em className="font-light italic">{siteConfig.foundedYear}</em>,
+              Started in{" "}
+              <em className="font-light italic">{siteConfig.foundedYear}</em>,
               <br />
-              when the world slowed down.
+              rooted in Davao.
             </h2>
 
             <DividerOrnament className="text-brand my-10 w-48 max-w-full" />
 
             <div className="text-foreground/80 max-w-2xl space-y-5 text-lg leading-relaxed">
               <p>
-                The Burp Co. started during the pandemic in {siteConfig.foundedYear}
-                — out of a commissary kitchen in Gulf View, Davao City, with a
-                stand mixer, a stubborn love of pastry, and neighbors who kept
+                The Burp Co. began during the pandemic in {siteConfig.foundedYear}
+                — out of Gulf View, Bago Aplaya, Davao City, with a stand
+                mixer, a stubborn love of pastry, and customers who kept
                 ordering anyway.
               </p>
               <p>
-                What began as a small-batch operation grew into three branches
-                across Mindanao: our commissary in Davao, a mall counter at SM
+                What started in our home barangay grew into three branches
+                across Mindanao: our commissary in Gulf View, a mall counter at SM
                 Ecoland, and our newest spot on the 3rd floor of SM Zamboanga.
-                The rules haven&apos;t changed — everything from scratch, measured
-                by weight, and never rushed.
               </p>
               <p className="font-serif text-foreground text-2xl leading-snug font-medium italic sm:text-3xl">
-                &ldquo;If we wouldn&apos;t serve it to our lola, we won&apos;t
-                serve it to you.&rdquo;
+                &ldquo;We&apos;re here to satisfy your cravings for premium
+                pastries — fresh, interesting, and mouthwatering.&rdquo;
               </p>
               <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 — The Burp Co. team
@@ -64,8 +67,23 @@ export default function Story({ className }: StoryProps) {
             </div>
           </div>
 
-          <div className="lg:col-span-5">
-            <div className="border-foreground/10 bg-card sticky top-24 rounded-3xl border p-8 shadow-xl">
+          <div className="flex flex-col gap-6 lg:col-span-5">
+            <div className="border-foreground/10 bg-card overflow-hidden rounded-3xl border shadow-xl">
+              <div className="bg-secondary relative aspect-[16/10] w-full">
+                <Image
+                  src={brandAssets.heroDisplay}
+                  alt="Special choco moist cakes fresh from The Burp Co. display case"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                />
+              </div>
+              <p className="text-muted-foreground px-6 py-4 text-xs tracking-wide uppercase">
+                Baked fresh daily — straight from our display case
+              </p>
+            </div>
+
+            <div className="border-foreground/10 bg-card rounded-3xl border p-8 shadow-xl">
               <div className="text-muted-foreground mb-6 text-xs font-semibold tracking-[0.2em] uppercase">
                 By the numbers
               </div>
@@ -73,29 +91,31 @@ export default function Story({ className }: StoryProps) {
                 {[
                   { label: "Years in business", value: String(years) },
                   { label: "Branches across Mindanao", value: "3" },
-                  { label: "Pies baked this year", value: "12,400+" },
-                  { label: "Kilos of butter per week", value: "40+" },
-                  { label: "Started during", value: "2020" },
+                  { label: "Best sellers on the menu", value: "8+" },
+                  { label: "Core categories", value: "Cakes · Brownies · Pies" },
+                  { label: "Started during", value: String(siteConfig.foundedYear) },
                 ].map((stat) => (
                   <div
                     key={stat.label}
                     className="flex items-baseline justify-between gap-4 py-4"
                   >
                     <dt className="text-foreground/80 text-sm">{stat.label}</dt>
-                    <dd className="font-serif text-foreground text-3xl font-medium tracking-tight">
+                    <dd className="font-serif text-foreground text-right text-2xl font-medium tracking-tight sm:text-3xl">
                       {stat.value}
                     </dd>
                   </div>
                 ))}
               </dl>
-              <div className="border-foreground/10 mt-8 border-t pt-6">
-                <div className="text-muted-foreground text-xs tracking-wide uppercase">
-                  Currently obsessed with
+              {spotlight && (
+                <div className="border-foreground/10 mt-8 border-t pt-6">
+                  <div className="text-muted-foreground text-xs tracking-wide uppercase">
+                    Currently obsessed with
+                  </div>
+                  <div className="font-serif text-foreground mt-2 text-xl font-medium italic">
+                    {spotlight.name} — {spotlight.tag?.toLowerCase()}
+                  </div>
                 </div>
-                <div className="font-serif text-foreground mt-2 text-xl font-medium italic">
-                  Durian custard pie — a Davao classic
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

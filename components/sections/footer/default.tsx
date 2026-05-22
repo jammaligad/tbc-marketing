@@ -1,7 +1,8 @@
+import Image from "next/image";
+
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-import TBC from "../../logos/tbc";
 import { DividerOrnament } from "../../ui/illustrations";
 import { ModeToggle } from "../../ui/mode-toggle";
 
@@ -11,8 +12,8 @@ const COLUMNS = [
     links: [
       { text: "Pies", href: siteConfig.menuUrl },
       { text: "Cakes", href: siteConfig.menuUrl },
-      { text: "Coffee", href: siteConfig.menuUrl },
-      { text: "Pastries", href: siteConfig.menuUrl },
+      { text: "Brownies", href: siteConfig.menuUrl },
+      { text: "Mix n' Match", href: "#combos" },
     ],
   },
   {
@@ -27,8 +28,10 @@ const COLUMNS = [
     links: [
       { text: "Instagram", href: siteConfig.links.instagram },
       { text: "Facebook", href: siteConfig.links.facebook },
+      { text: "TikTok", href: siteConfig.links.tiktok },
       { text: "Email", href: siteConfig.links.email },
-      { text: "Press", href: siteConfig.links.email },
+      { text: `Call ${siteConfig.phoneDisplay}`, href: `tel:${siteConfig.phone}` },
+      { text: "Order inquiry", href: siteConfig.orderUrl },
     ],
   },
 ];
@@ -49,15 +52,21 @@ export default function Footer({ className }: FooterProps) {
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div className="flex items-center gap-3">
-              <span className="bg-foreground text-background flex size-12 items-center justify-center rounded-full">
-                <TBC className="size-6" />
+              <span className="border-border relative size-12 overflow-hidden rounded-full border shadow-sm">
+                <Image
+                  src={siteConfig.logo}
+                  alt="The Burp Co. logo"
+                  fill
+                  className="object-cover"
+                  sizes="48px"
+                />
               </span>
               <span className="font-serif text-3xl font-medium">
                 The Burp Co.
               </span>
             </div>
             <p className="font-serif text-foreground/80 mt-6 max-w-md text-2xl leading-snug font-light italic">
-              Pies you dream about, coffee that keeps you coming back.
+              {siteConfig.tagline}
             </p>
             <DividerOrnament className="text-brand mt-8 w-40" />
             <div className="text-muted-foreground mt-6 space-y-3 text-sm">
@@ -69,12 +78,18 @@ export default function Footer({ className }: FooterProps) {
                   </div>
                 </div>
               ))}
-              <div className="pt-2">
+              <div className="space-y-1 pt-2">
                 <a
                   href={siteConfig.links.email}
-                  className="text-foreground hover:text-brand"
+                  className="text-foreground hover:text-brand block"
                 >
-                  hello@theburpco.com
+                  dburpco@gmail.com
+                </a>
+                <a
+                  href={`tel:${siteConfig.phone}`}
+                  className="text-foreground hover:text-brand block"
+                >
+                  {siteConfig.phoneDisplay}
                 </a>
               </div>
             </div>
@@ -106,20 +121,20 @@ export default function Footer({ className }: FooterProps) {
         <div className="border-border/60 mt-16 flex flex-col-reverse items-center justify-between gap-6 border-t pt-8 md:flex-row">
           <div className="text-muted-foreground text-xs">
             © {new Date().getFullYear()} The Burp Co. · Est. {siteConfig.foundedYear}{" "}
-            · Mindanao, Philippines
+            · Davao City, Philippines
           </div>
           <div className="flex items-center gap-6">
             <a
-              href={siteConfig.url}
+              href={siteConfig.links.instagram}
               className="text-muted-foreground hover:text-foreground text-xs"
             >
-              Privacy
+              Instagram
             </a>
             <a
-              href={siteConfig.url}
+              href={siteConfig.links.facebook}
               className="text-muted-foreground hover:text-foreground text-xs"
             >
-              Terms
+              Facebook
             </a>
             <ModeToggle />
           </div>

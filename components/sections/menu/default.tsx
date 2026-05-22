@@ -1,87 +1,88 @@
 import { ArrowUpRightIcon } from "lucide-react";
-import { ReactNode } from "react";
+import Image from "next/image";
 
+import { combos, products } from "@/config/products";
 import { siteConfig } from "@/config/site";
+import { formatPriceFrom } from "@/lib/currency";
 import { cn } from "@/lib/utils";
 
-import {
-  CakeIllustration,
-  CoffeeIllustration,
-  CroissantIllustration,
-  PieIllustration,
-} from "../../ui/illustrations";
+import { BrownieIllustration } from "../../ui/illustrations";
 
 interface MenuCard {
   title: string;
   tagline: string;
   description: string;
-  priceFrom: string;
-  illustration: ReactNode;
+  priceFrom: number;
+  priceSuffix?: string;
+  image?: string;
+  imageAlt?: string;
+  illustration?: React.ReactNode;
   accent: "cream" | "warm" | "dark" | "rose";
-  featured?: boolean;
   items: string[];
 }
+
+const pieHero = products.find((p) => p.id === "durian-pie")!;
+const cakeHero = products.find((p) => p.id === "special-choco-moist-cake")!;
+const comboHero = combos.find((c) => c.id === "mix-match-4")!;
 
 const MENU: MenuCard[] = [
   {
     title: "Pies",
     tagline: "Our signature",
     description:
-      "Buttery, all-butter crusts crimped by hand. Seasonal fruit, deep-dish savories, and the apple pie people drive across town for.",
-    priceFrom: "$8",
-    illustration: <PieIllustration className="h-full w-full" />,
+      "Filipino classics and creative twists — durian, buko, egg pie, and cheesecake pies that put us on the map.",
+    priceFrom: 350,
+    image: pieHero.image,
+    imageAlt: `${pieHero.name} from The Burp Co.`,
     accent: "warm",
-    featured: true,
     items: [
-      "Brown butter apple",
-      "Bourbon pecan",
-      "Wild blueberry lattice",
-      "Chicken pot pie",
+      "Durian pie",
+      "Buko pie",
+      "Blueberry cheesecake pie",
+      "Apple crumble pie",
+      "Oreo cheesecake pie",
+      "Egg pie",
     ],
   },
   {
     title: "Cakes",
-    tagline: "Made to order",
+    tagline: "Whole & by the slice",
     description:
-      "Layer cakes, slices, and celebration showstoppers — frosted by hand, with the kind of crumb you write home about.",
-    priceFrom: "$6 / slice",
-    illustration: <CakeIllustration className="h-full w-full" />,
+      "Moist choco cakes, ube yema, and celebration whole cakes — sulit, barato, and lami for every occasion.",
+    priceFrom: 180,
+    priceSuffix: "/ slice",
+    image: cakeHero.image,
+    imageAlt: `${cakeHero.name} from The Burp Co.`,
     accent: "rose",
     items: [
-      "Olive oil & citrus",
-      "Brown sugar chiffon",
-      "Triple chocolate fudge",
-      "Custom celebration cakes",
+      "Choco moist cake",
+      "Ube yema cake",
+      "Custard cake",
+      "Custom whole cakes",
     ],
   },
   {
-    title: "Coffee",
-    tagline: "Brewed to order",
+    title: "Brownies",
+    tagline: "Rich & fudgy",
     description:
-      "Single-origin espresso, slow pour-overs, and the seasonal latte everyone&apos;s talking about. Made by people who care about milk texture.",
-    priceFrom: "$4",
-    illustration: <CoffeeIllustration className="h-full w-full" />,
+      "Double chocolate brownies baked dense and decadent — the perfect pairing with our pies and cakes.",
+    priceFrom: 120,
+    illustration: <BrownieIllustration className="h-full w-full" />,
     accent: "dark",
-    items: [
-      "House espresso",
-      "Cardamom oat latte",
-      "Maple cortado",
-      "Pour-over of the week",
-    ],
+    items: ["Double choco brownie", "Best seller batch", "Party trays"],
   },
   {
-    title: "Pastries",
-    tagline: "Morning ritual",
-    description:
-      "Croissants laminated over three days. Morning buns, scones, and seasonal galettes — gone by lunch most days.",
-    priceFrom: "$5",
-    illustration: <CroissantIllustration className="h-full w-full" />,
+    title: "Mix n' Match",
+    tagline: siteConfig.mixAndMatch.title,
+    description: siteConfig.mixAndMatch.description,
+    priceFrom: 250,
+    image: comboHero.image,
+    imageAlt: `${comboHero.name} from The Burp Co.`,
     accent: "cream",
     items: [
-      "Plain & almond croissants",
-      "Maple morning buns",
-      "Buttermilk scones",
-      "Seasonal galettes",
+      "Choco moist + cheesecake",
+      "Pie sampler combo",
+      "Build your own dish",
     ],
   },
 ];
@@ -93,12 +94,39 @@ const accentStyles: Record<MenuCard["accent"], string> = {
   rose: "bg-accent text-foreground",
 };
 
-const accentIllustrationStyles: Record<MenuCard["accent"], string> = {
-  cream: "text-brand",
-  warm: "text-brand",
-  dark: "text-background",
-  rose: "text-brand",
-};
+function MenuVisual({ card }: { card: MenuCard }) {
+  if (card.image) {
+    return (
+      <div className="bg-background/40 relative mt-6 aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-sm">
+        <Image
+          src={card.image}
+          alt={card.imageAlt ?? card.title}
+          fill
+          className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+          sizes="(max-width: 768px) 100vw, 25vw"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        "relative mt-6 flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-2xl",
+        card.accent === "dark" ? "bg-background/10" : "bg-foreground/5",
+      )}
+    >
+      <div
+        className={cn(
+          "pointer-events-none size-40 transition-transform group-hover:scale-105 sm:size-48",
+          card.accent === "dark" ? "text-background" : "text-brand",
+        )}
+      >
+        {card.illustration}
+      </div>
+    </div>
+  );
+}
 
 export default function Menu({ className }: { className?: string }) {
   return (
@@ -114,30 +142,30 @@ export default function Menu({ className }: { className?: string }) {
               The menu
             </div>
             <h2 className="font-serif text-foreground max-w-3xl text-5xl leading-[1] font-medium tracking-tight sm:text-7xl">
-              Four things,
+              Cakes, brownies,
               <br />
-              done <em className="text-brand font-light italic">very</em> well.
+              and pies —{" "}
+              <em className="text-brand font-light italic">our way</em>.
             </h2>
           </div>
           <a
-            href={siteConfig.menuUrl}
+            href={siteConfig.orderUrl}
             className="group text-foreground inline-flex items-center gap-2 text-sm font-semibold tracking-wide uppercase"
           >
-            Full menu
+            Order for pickup
             <span className="border-foreground/30 group-hover:border-foreground group-hover:bg-foreground group-hover:text-background flex size-9 items-center justify-center rounded-full border transition-all">
               <ArrowUpRightIcon className="size-4" />
             </span>
           </a>
         </div>
 
-        <div className="grid auto-rows-fr gap-5 md:grid-cols-6">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {MENU.map((card) => (
             <article
               key={card.title}
               className={cn(
                 "group relative flex flex-col overflow-hidden rounded-3xl p-8 transition-all hover:-translate-y-1",
                 accentStyles[card.accent],
-                card.featured ? "md:col-span-4 md:row-span-2" : "md:col-span-2",
               )}
             >
               <div className="flex items-start justify-between gap-4">
@@ -158,19 +186,19 @@ export default function Menu({ className }: { className?: string }) {
                 </div>
                 <div
                   className={cn(
-                    "border-current/20 inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold whitespace-nowrap",
+                    "border-current/20 inline-flex shrink-0 items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold whitespace-nowrap",
                     card.accent === "dark"
                       ? "border-background/30"
                       : "border-foreground/15",
                   )}
                 >
-                  from {card.priceFrom}
+                  from {formatPriceFrom(card.priceFrom, card.priceSuffix)}
                 </div>
               </div>
 
               <p
                 className={cn(
-                  "mt-4 max-w-md text-sm leading-relaxed sm:text-base",
+                  "mt-4 text-sm leading-relaxed sm:text-base",
                   card.accent === "dark"
                     ? "text-background/70"
                     : "text-muted-foreground",
@@ -179,62 +207,23 @@ export default function Menu({ className }: { className?: string }) {
                 {card.description}
               </p>
 
-              {card.featured ? (
-                <div className="relative mt-8 flex flex-1 items-end">
-                  <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                    {card.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-center gap-2 font-medium"
-                      >
-                        <span
-                          className={cn(
-                            "h-1 w-1 rounded-full",
-                            card.accent === "dark"
-                              ? "bg-background/60"
-                              : "bg-brand",
-                          )}
-                        />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <div
+              <MenuVisual card={card} />
+
+              <ul className="mt-4 flex flex-wrap gap-1.5 text-xs font-medium">
+                {card.items.map((item) => (
+                  <li
+                    key={item}
                     className={cn(
-                      "pointer-events-none absolute -right-12 -bottom-12 size-72 transition-transform group-hover:scale-105 sm:-right-8 sm:-bottom-8",
-                      accentIllustrationStyles[card.accent],
+                      "rounded-full px-2.5 py-1",
+                      card.accent === "dark"
+                        ? "bg-background/15"
+                        : "bg-foreground/8",
                     )}
                   >
-                    {card.illustration}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div
-                    className={cn(
-                      "pointer-events-none mt-6 -mr-8 -mb-8 ml-auto size-40 transition-transform group-hover:scale-105 sm:size-48",
-                      accentIllustrationStyles[card.accent],
-                    )}
-                  >
-                    {card.illustration}
-                  </div>
-                  <ul className="mt-4 flex flex-wrap gap-1.5 text-xs font-medium">
-                    {card.items.slice(0, 3).map((item) => (
-                      <li
-                        key={item}
-                        className={cn(
-                          "rounded-full px-2.5 py-1",
-                          card.accent === "dark"
-                            ? "bg-background/15"
-                            : "bg-foreground/8",
-                        )}
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </article>
           ))}
         </div>

@@ -1,12 +1,11 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-
-import TBC from "../../logos/tbc";
 
 const LINKS = [
   { text: "Menu", href: siteConfig.menuUrl },
@@ -34,8 +33,15 @@ export default function Navbar({ className }: NavbarProps) {
           href="#top"
           className="text-foreground flex items-center gap-2.5 transition-opacity hover:opacity-80"
         >
-          <span className="bg-foreground text-background flex size-9 items-center justify-center rounded-full">
-            <TBC className="size-5" />
+          <span className="border-border relative size-9 overflow-hidden rounded-full border shadow-sm">
+            <Image
+              src={siteConfig.logo}
+              alt="The Burp Co. logo"
+              fill
+              className="object-cover"
+              sizes="36px"
+              priority
+            />
           </span>
           <span className="font-serif text-xl font-medium tracking-tight">
             The Burp Co.

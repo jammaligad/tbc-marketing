@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, MapPinIcon, SparklesIcon } from "lucide-react";
+import { ArrowUpRightIcon, MapPinIcon, PhoneIcon, SparklesIcon } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -89,9 +89,9 @@ export default function Visit({ className }: { className?: string }) {
             </h2>
           </div>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            From our commissary kitchen in Gulf View to mall counters in Davao
-            and Zamboanga — there&apos;s always a Burp Co. nearby. Mall branches
-            follow SM operating hours.
+            Order and pickup at our commissary in Gulf View, Davao — or grab
+            something fresh at SM Ecoland and our newest branch at SM Zamboanga.
+            Mall branches follow SM operating hours.
           </p>
         </div>
 
@@ -185,21 +185,36 @@ export default function Visit({ className }: { className?: string }) {
                 </li>
               ))}
             </ul>
+            <div className="border-background/15 mt-6 border-t pt-5 space-y-2">
+              <a
+                href={`tel:${siteConfig.phone}`}
+                className="text-background/80 hover:text-background flex items-center gap-2 text-sm"
+              >
+                <PhoneIcon className="size-4" />
+                {siteConfig.phoneDisplay}
+              </a>
+            </div>
           </div>
 
           <div className="border-border bg-card rounded-3xl border p-8">
             <div className="font-serif text-foreground text-2xl leading-tight font-medium">
               Commissary note
             </div>
-            <p className="text-muted-foreground mt-4 leading-relaxed">
+              <p className="text-muted-foreground mt-4 leading-relaxed">
               Our Gulf View commissary is a production kitchen — not a walk-in
-              retail shop. For custom orders, catering, or wholesale inquiries,
-              reach us at{" "}
+              retail shop. For custom orders, catering, or wholesale, reach us at{" "}
               <a
                 href={siteConfig.links.email}
                 className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
               >
-                hello@theburpco.com
+                dburpco@gmail.com
+              </a>{" "}
+              or call{" "}
+              <a
+                href={`tel:${siteConfig.phone}`}
+                className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
+              >
+                {siteConfig.phoneDisplay}
               </a>
               .
             </p>

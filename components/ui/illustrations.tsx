@@ -253,6 +253,50 @@ export function CroissantIllustration({ className, ...props }: SVGProps) {
   );
 }
 
+export function BrownieIllustration({ className, ...props }: SVGProps) {
+  return (
+    <svg
+      viewBox="0 0 200 200"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("h-auto w-full", className)}
+      aria-hidden="true"
+      {...props}
+    >
+      <ellipse
+        cx="100"
+        cy="165"
+        rx="70"
+        ry="10"
+        fill="currentColor"
+        opacity="0.15"
+      />
+      <rect
+        x="40"
+        y="70"
+        width="120"
+        height="80"
+        rx="8"
+        fill="currentColor"
+      />
+      <rect
+        x="48"
+        y="78"
+        width="104"
+        height="64"
+        rx="4"
+        fill="currentColor"
+        opacity="0.85"
+      />
+      <circle cx="70" cy="100" r="6" fill="currentColor" opacity="0.35" />
+      <circle cx="100" cy="95" r="7" fill="currentColor" opacity="0.35" />
+      <circle cx="130" cy="105" r="5" fill="currentColor" opacity="0.35" />
+      <circle cx="85" cy="120" r="5" fill="currentColor" opacity="0.25" />
+      <circle cx="115" cy="118" r="6" fill="currentColor" opacity="0.25" />
+    </svg>
+  );
+}
+
 export function Sparkle({ className, ...props }: SVGProps) {
   return (
     <svg

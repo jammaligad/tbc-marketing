@@ -16,13 +16,16 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     "bakery",
+    "Davao City",
     "pies",
     "cakes",
-    "coffee",
+    "brownies",
+    "cheesecake pie",
+    "durian pie",
     "The Burp Co",
     "TBC",
-    "handmade",
-    "fresh baked",
+    "SM Ecoland",
+    "Mindanao",
   ],
   openGraph: {
     type: "website",
@@ -47,8 +50,9 @@ export const metadata: Metadata = {
     images: [siteConfig.ogImage],
   },
   icons: {
-    icon: "/favicon.svg",
-    apple: "/apple-touch-icon.png",
+    icon: siteConfig.icons.favicon,
+    apple: siteConfig.icons.apple,
+    shortcut: siteConfig.icons.favicon,
   },
 };
 

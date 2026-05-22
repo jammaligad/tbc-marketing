@@ -1,3 +1,5 @@
+import Bestsellers from "../components/sections/bestsellers/default";
+import Combos from "../components/sections/combos/default";
 import CTA from "../components/sections/cta/default";
 import FAQ from "../components/sections/faq/default";
 import Footer from "../components/sections/footer/default";
@@ -17,7 +19,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Marquee />
+      <Bestsellers />
       <Menu />
+      <Combos />
       <Story />
       <Process />
       <Testimonials />

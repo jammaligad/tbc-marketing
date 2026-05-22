@@ -3,25 +3,22 @@ import { cn } from "@/lib/utils";
 import { Sparkle } from "../../ui/illustrations";
 
 interface MarqueeProps {
-  items?: string[];
   className?: string;
   variant?: "brand" | "ghost";
 }
 
-const DEFAULT_ITEMS = [
-  "Baked fresh daily",
-  "Brewed strong always",
-  "Crimped by hand",
-  "Pulled to order",
-  "Hand-frosted with care",
-  "Small batch, big love",
-];
-
 export default function Marquee({
-  items = DEFAULT_ITEMS,
   className,
   variant = "brand",
 }: MarqueeProps) {
+  const items = [
+    "Baked fresh daily",
+    "Made from scratch",
+    "Less sugar, all the flavor",
+    "Cheesecake pies — must try",
+    "Whole cakes, sulit & lami",
+    "Premium ingredients only",
+  ];
   const loopItems = [...items, ...items, ...items, ...items];
 
   return (

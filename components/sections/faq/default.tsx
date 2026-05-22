@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ReactNode } from "react";
 
 import { siteConfig } from "@/config/site";
@@ -22,7 +21,8 @@ const ITEMS: FAQItem[] = [
     answer: (
       <>
         <p className="mb-4">
-          We have three locations across Mindanao:
+          We have three locations across Mindanao — available for ordering and
+          pickup:
         </p>
         <ul className="space-y-3">
           {siteConfig.branches.map((branch) => (
@@ -31,7 +31,10 @@ const ITEMS: FAQItem[] = [
               {" — "}
               {branch.address}, {branch.city}, {branch.region}
               {branch.isCommissary && (
-                <span className="text-muted-foreground"> (commissary — not walk-in retail)</span>
+                <span className="text-muted-foreground">
+                  {" "}
+                  (commissary — production kitchen, not walk-in retail)
+                </span>
               )}
               {branch.isNewest && (
                 <span className="text-brand"> · our newest branch</span>
@@ -43,20 +46,25 @@ const ITEMS: FAQItem[] = [
     ),
   },
   {
-    question: "What are your hours?",
+    question: "How do I place an order?",
     answer: (
       <p>
-        Our mall branches at SM Ecoland (Davao) and SM Zamboanga follow SM mall
-        operating hours — typically 10am to 9pm daily, with extended hours on
-        weekends. The Gulf View commissary is a production kitchen and not open
-        for walk-in retail. See our{" "}
-        <Link
-          href={siteConfig.visitUrl}
+        Email us at{" "}
+        <a
+          href={siteConfig.links.email}
           className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
         >
-          visit page
-        </Link>{" "}
-        for details.
+          dburpco@gmail.com
+        </a>{" "}
+        or call{" "}
+        <a
+          href={`tel:${siteConfig.phone}`}
+          className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
+        >
+          {siteConfig.phoneDisplay}
+        </a>
+        . You can also visit our SM Ecoland or SM Zamboanga branches during mall
+        hours for walk-in orders.
       </p>
     ),
   },
@@ -64,32 +72,31 @@ const ITEMS: FAQItem[] = [
     question: "Do you take custom orders or pre-orders?",
     answer: (
       <p>
-        Yes! Custom cakes and large pie orders should be placed at least 48
-        hours in advance through our commissary. For catering, give us a week.
-        Walk-ins at our mall branches are always welcome for whatever&apos;s
-        fresh in the case.
+        Yes! Custom whole cakes and large orders should be placed in advance
+        through our commissary. For catering or wholesale inquiries, contact{" "}
+        <a
+          href={siteConfig.links.email}
+          className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
+        >
+          dburpco@gmail.com
+        </a>
+        . Walk-ins at our mall branches are welcome for whatever&apos;s fresh.
       </p>
     ),
   },
   {
-    question: "Can you accommodate allergies or dietary needs?",
-    answer: (
-      <p>
-        We always have a few options on select items. Our kitchen handles nuts,
-        gluten, and dairy though, so we can&apos;t guarantee anything is
-        allergen-free. Ask our team about ingredients for any item — we&apos;re
-        happy to walk through it.
-      </p>
-    ),
+    question: "What is Mix n' Match?",
+    answer: <p>{siteConfig.mixAndMatch.description}</p>,
   },
   {
     question: "When did The Burp Co. start?",
     answer: (
       <p>
-        We started in {siteConfig.foundedYear}, right in the middle of the
-        pandemic, from a commissary kitchen in Gulf View, Davao City. What
-        began as a small-batch operation has grown into three branches across
-        Mindanao — but we still bake everything the same way we did on day one.
+        We started in {siteConfig.foundedYear} during the pandemic, in Gulf View,
+        Bago Aplaya, Davao City. What began as a small cakes-and-pies
+        operation from our commissary has grown into three branches across
+        Mindanao — but we still bake everything from scratch, the same way we
+        did on day one.
       </p>
     ),
   },
@@ -114,12 +121,19 @@ export default function FAQ({ className }: FAQProps) {
               .
             </h2>
             <p className="text-muted-foreground mt-6 max-w-md leading-relaxed">
-              Can&apos;t find what you&apos;re looking for? Send us a note at{" "}
+              For press or wholesale inquiries, reach us at{" "}
               <a
                 href={siteConfig.links.email}
                 className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
               >
-                hello@theburpco.com
+                dburpco@gmail.com
+              </a>{" "}
+              or{" "}
+              <a
+                href={`tel:${siteConfig.phone}`}
+                className="text-foreground underline decoration-brand decoration-2 underline-offset-4"
+              >
+                {siteConfig.phoneDisplay}
               </a>
               .
             </p>

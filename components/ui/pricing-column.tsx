@@ -3,6 +3,7 @@ import { CircleCheckBig } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
+import { formatPrice } from "@/lib/currency";
 import { cn } from "@/lib/utils";
 
 import { Button } from "./button";
@@ -87,7 +88,7 @@ export function PricingColumn({
             <div className="flex h-6 items-baseline gap-1">
               <span className="text-muted-foreground text-lg font-medium line-through">
                 {originalPrice > 0 && price !== originalPrice
-                  ? `$${originalPrice}`
+                  ? formatPrice(originalPrice)
                   : ""}
               </span>
             </div>
@@ -95,18 +96,15 @@ export function PricingColumn({
           <div className="flex items-center gap-3 lg:flex-col lg:items-start xl:flex-row xl:items-center">
             <div className="flex flex-col gap-1">
               <div className="flex items-baseline gap-1">
-                <span className="text-muted-foreground text-2xl font-bold">
-                  $
-                </span>
-                <span className="text-6xl font-bold">{price}</span>
+                <span className="text-6xl font-bold">{formatPrice(price)}</span>
               </div>
             </div>
             <div className="flex min-h-[40px] flex-col">
               {price > 0 && (
                 <>
-                  <span className="text-sm">one-time payment</span>
+                  <span className="text-sm">starting price</span>
                   <span className="text-muted-foreground text-sm">
-                    plus local taxes
+                    VAT inclusive where applicable
                   </span>
                 </>
               )}
